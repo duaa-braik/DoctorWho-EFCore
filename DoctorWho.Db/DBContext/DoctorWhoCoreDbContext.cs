@@ -23,7 +23,7 @@ namespace DoctorWho.Db.DBContext
 
             IConfiguration config = builder.Build();
 
-            ConnectionString = config["ConnectionString:SqlServer"];
+            ConnectionString = config["ConnectionString:Connection"];
         }
 
 
@@ -36,7 +36,7 @@ namespace DoctorWho.Db.DBContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<Episode>().Property(e => e.EpisodeType).HasConversion<string>();
         }
     }
 }
