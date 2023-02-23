@@ -1,4 +1,6 @@
 DoctorWho/bin
 DoctorWho/obj
+**/bin/*
+**/obj/*
 .vs/
 DoctorWho.sln
