@@ -4,3 +4,4 @@ DoctorWho/obj
 **/obj/*
 .vs/
 DoctorWho.sln
+*.Designer.cs

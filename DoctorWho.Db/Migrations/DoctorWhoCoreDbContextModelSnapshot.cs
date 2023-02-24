@@ -35,6 +35,48 @@ namespace DoctorWho.Db.Migrations
                     b.HasIndex("EpisodesEpisodeId");
 
                     b.ToTable("CompanionEpisode");
+
+                    b.HasData(
+                        new
+                        {
+                            CompanionsCompanionId = 7,
+                            EpisodesEpisodeId = 2
+                        },
+                        new
+                        {
+                            CompanionsCompanionId = 7,
+                            EpisodesEpisodeId = 3
+                        },
+                        new
+                        {
+                            CompanionsCompanionId = 8,
+                            EpisodesEpisodeId = 3
+                        },
+                        new
+                        {
+                            CompanionsCompanionId = 7,
+                            EpisodesEpisodeId = 4
+                        },
+                        new
+                        {
+                            CompanionsCompanionId = 9,
+                            EpisodesEpisodeId = 4
+                        },
+                        new
+                        {
+                            CompanionsCompanionId = 7,
+                            EpisodesEpisodeId = 5
+                        },
+                        new
+                        {
+                            CompanionsCompanionId = 10,
+                            EpisodesEpisodeId = 5
+                        },
+                        new
+                        {
+                            CompanionsCompanionId = 7,
+                            EpisodesEpisodeId = 6
+                        });
                 });
 
             modelBuilder.Entity("DoctorWho.Db.DataModels.Author", b =>
@@ -52,6 +94,33 @@ namespace DoctorWho.Db.Migrations
                     b.HasKey("AuthorId");
 
                     b.ToTable("Authors");
+
+                    b.HasData(
+                        new
+                        {
+                            AuthorId = 23,
+                            AuthorName = "Russell T Davies"
+                        },
+                        new
+                        {
+                            AuthorId = 29,
+                            AuthorName = "Robert Shearman"
+                        },
+                        new
+                        {
+                            AuthorId = 30,
+                            AuthorName = "Steven Moffat"
+                        },
+                        new
+                        {
+                            AuthorId = 32,
+                            AuthorName = "James Moran"
+                        },
+                        new
+                        {
+                            AuthorId = 35,
+                            AuthorName = "Terry Nation"
+                        });
                 });
 
             modelBuilder.Entity("DoctorWho.Db.DataModels.Companion", b =>
@@ -67,12 +136,33 @@ namespace DoctorWho.Db.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WhoPlayed")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CompanionId");
 
                     b.ToTable("Companions");
+
+                    b.HasData(
+                        new
+                        {
+                            CompanionId = 7,
+                            CompanionName = "Rose Tyler"
+                        },
+                        new
+                        {
+                            CompanionId = 8,
+                            CompanionName = "Adam Mitchell"
+                        },
+                        new
+                        {
+                            CompanionId = 9,
+                            CompanionName = "Jack Harkness"
+                        },
+                        new
+                        {
+                            CompanionId = 10,
+                            CompanionName = "Mickey Smith"
+                        });
                 });
 
             modelBuilder.Entity("DoctorWho.Db.DataModels.Doctor", b =>
@@ -83,16 +173,15 @@ namespace DoctorWho.Db.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorId"), 1L, 1);
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DoctorName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DoctorNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DoctorNumber")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FirstEpisodeDate")
                         .HasColumnType("datetime2");
@@ -103,6 +192,48 @@ namespace DoctorWho.Db.Migrations
                     b.HasKey("DoctorId");
 
                     b.ToTable("Doctors");
+
+                    b.HasData(
+                        new
+                        {
+                            DoctorId = 1,
+                            DoctorName = "William Hartnell",
+                            DoctorNumber = 1,
+                            FirstEpisodeDate = new DateTime(1966, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastEpisodeDate = new DateTime(1966, 10, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            DoctorId = 2,
+                            DoctorName = "Patrick Troughton",
+                            DoctorNumber = 2,
+                            FirstEpisodeDate = new DateTime(1966, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastEpisodeDate = new DateTime(1969, 6, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            DoctorId = 3,
+                            DoctorName = "Jon Pertwee",
+                            DoctorNumber = 3,
+                            FirstEpisodeDate = new DateTime(1970, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastEpisodeDate = new DateTime(1974, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            DoctorId = 9,
+                            DoctorName = "Christopher Eccleston",
+                            DoctorNumber = 9,
+                            FirstEpisodeDate = new DateTime(2005, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastEpisodeDate = new DateTime(2005, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            DoctorId = 10,
+                            DoctorName = "David Tennant",
+                            DoctorNumber = 10,
+                            FirstEpisodeDate = new DateTime(2005, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastEpisodeDate = new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("DoctorWho.Db.DataModels.Enemy", b =>
@@ -114,7 +245,6 @@ namespace DoctorWho.Db.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnemyId"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EnemyName")
@@ -124,6 +254,38 @@ namespace DoctorWho.Db.Migrations
                     b.HasKey("EnemyId");
 
                     b.ToTable("Enemies");
+
+                    b.HasData(
+                        new
+                        {
+                            EnemyId = 6,
+                            EnemyName = "Lady Cassandra"
+                        },
+                        new
+                        {
+                            EnemyId = 7,
+                            EnemyName = "Metaltron"
+                        },
+                        new
+                        {
+                            EnemyId = 8,
+                            EnemyName = "Empty Child"
+                        },
+                        new
+                        {
+                            EnemyId = 9,
+                            EnemyName = "Clockword Droid"
+                        },
+                        new
+                        {
+                            EnemyId = 11,
+                            EnemyName = "Control Node"
+                        },
+                        new
+                        {
+                            EnemyId = 12,
+                            EnemyName = "The Beast"
+                        });
                 });
 
             modelBuilder.Entity("DoctorWho.Db.DataModels.Episode", b =>
@@ -137,7 +299,7 @@ namespace DoctorWho.Db.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EpisodeDate")
@@ -167,6 +329,63 @@ namespace DoctorWho.Db.Migrations
                     b.HasIndex("DoctorId");
 
                     b.ToTable("Episodes");
+
+                    b.HasData(
+                        new
+                        {
+                            EpisodeId = 2,
+                            AuthorId = 23,
+                            DoctorId = 9,
+                            EpisodeDate = new DateTime(2005, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EpisodeNumber = 2,
+                            EpisodeType = "Episode",
+                            SeriesNumber = 1,
+                            Title = "The End of the World"
+                        },
+                        new
+                        {
+                            EpisodeId = 3,
+                            AuthorId = 29,
+                            DoctorId = 9,
+                            EpisodeDate = new DateTime(2005, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EpisodeNumber = 6,
+                            EpisodeType = "Episode",
+                            SeriesNumber = 1,
+                            Title = "Dalek"
+                        },
+                        new
+                        {
+                            EpisodeId = 4,
+                            AuthorId = 30,
+                            DoctorId = 9,
+                            EpisodeDate = new DateTime(2005, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EpisodeNumber = 10,
+                            EpisodeType = "Episode",
+                            SeriesNumber = 1,
+                            Title = "The Doctor Dances"
+                        },
+                        new
+                        {
+                            EpisodeId = 5,
+                            AuthorId = 30,
+                            DoctorId = 10,
+                            EpisodeDate = new DateTime(2006, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EpisodeNumber = 4,
+                            EpisodeType = "Episode",
+                            SeriesNumber = 2,
+                            Title = "The Girl in the Fireplace"
+                        },
+                        new
+                        {
+                            EpisodeId = 6,
+                            AuthorId = 32,
+                            DoctorId = 10,
+                            EpisodeDate = new DateTime(2006, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EpisodeNumber = 9,
+                            EpisodeType = "Episode",
+                            SeriesNumber = 2,
+                            Title = "The Satan Pit"
+                        });
                 });
 
             modelBuilder.Entity("EnemyEpisode", b =>
@@ -182,6 +401,38 @@ namespace DoctorWho.Db.Migrations
                     b.HasIndex("EpisodesEpisodeId");
 
                     b.ToTable("EnemyEpisode");
+
+                    b.HasData(
+                        new
+                        {
+                            EnemiesEnemyId = 6,
+                            EpisodesEpisodeId = 2
+                        },
+                        new
+                        {
+                            EnemiesEnemyId = 7,
+                            EpisodesEpisodeId = 3
+                        },
+                        new
+                        {
+                            EnemiesEnemyId = 8,
+                            EpisodesEpisodeId = 4
+                        },
+                        new
+                        {
+                            EnemiesEnemyId = 9,
+                            EpisodesEpisodeId = 5
+                        },
+                        new
+                        {
+                            EnemiesEnemyId = 11,
+                            EpisodesEpisodeId = 5
+                        },
+                        new
+                        {
+                            EnemiesEnemyId = 12,
+                            EpisodesEpisodeId = 6
+                        });
                 });
 
             modelBuilder.Entity("CompanionEpisode", b =>
@@ -209,9 +460,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasOne("DoctorWho.Db.DataModels.Doctor", "Doctor")
                         .WithMany("Episodes")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DoctorId");
 
                     b.Navigation("Author");
 
