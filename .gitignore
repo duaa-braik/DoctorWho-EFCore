@@ -5,3 +5,5 @@ DoctorWho/obj
 .vs/
 DoctorWho.sln
 *.Designer.cs
+SqlFiles/
+DoctorWho.Db/Migrations/20230224221153_FixCompanionsFunction.cs
