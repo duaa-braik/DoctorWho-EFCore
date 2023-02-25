@@ -34,7 +34,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasIndex("EpisodesEpisodeId");
 
-                    b.ToTable("CompanionEpisode", (string)null);
+                    b.ToTable("CompanionEpisode");
 
                     b.HasData(
                         new
@@ -93,7 +93,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasKey("AuthorId");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
 
                     b.HasData(
                         new
@@ -140,7 +140,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasKey("CompanionId");
 
-                    b.ToTable("Companions", (string)null);
+                    b.ToTable("Companions");
 
                     b.HasData(
                         new
@@ -191,7 +191,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasKey("DoctorId");
 
-                    b.ToTable("Doctors", (string)null);
+                    b.ToTable("Doctors");
 
                     b.HasData(
                         new
@@ -253,7 +253,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasKey("EnemyId");
 
-                    b.ToTable("Enemies", (string)null);
+                    b.ToTable("Enemies");
 
                     b.HasData(
                         new
@@ -328,7 +328,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Episodes", (string)null);
+                    b.ToTable("Episodes");
 
                     b.HasData(
                         new
@@ -388,6 +388,31 @@ namespace DoctorWho.Db.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DoctorWho.Db.DataModels.ViewEpisodes", b =>
+                {
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Companions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DoctorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Enemies")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToView("viewEpisodes");
+                });
+
             modelBuilder.Entity("EnemyEpisode", b =>
                 {
                     b.Property<int>("EnemiesEnemyId")
@@ -400,7 +425,7 @@ namespace DoctorWho.Db.Migrations
 
                     b.HasIndex("EpisodesEpisodeId");
 
-                    b.ToTable("EnemyEpisode", (string)null);
+                    b.ToTable("EnemyEpisode");
 
                     b.HasData(
                         new
