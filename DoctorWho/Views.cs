@@ -5,7 +5,7 @@ namespace DoctorWho
 {
     public class Views
     {
-        public List<ViewEpisodes> ViewEpisodes()
+        public List<ViewEpisodes> GetEpisodesDetails()
         {
             using var context = new DoctorWhoCoreDbContext();
 

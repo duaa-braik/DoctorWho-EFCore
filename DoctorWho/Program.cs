@@ -7,12 +7,16 @@ public class Program
     {
         var UserDefinedFunctions = new UserDefinedFunctions();
         var Views = new Views();
+        var StoredProcedures = new StoredProcedures();
 
         int EpisodeId = 3;
 
         UserDefinedFunctions.GetCompanions(EpisodeId);
         UserDefinedFunctions.GetEnemies(EpisodeId);
 
-        Views.ViewEpisodes();
+        Views.GetEpisodesDetails();
+
+        StoredProcedures.GetTopAppearences();
+
     }
 }
