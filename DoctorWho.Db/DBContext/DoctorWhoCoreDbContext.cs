@@ -12,6 +12,8 @@ namespace DoctorWho.Db.DBContext
         public DbSet<Companion> Companions { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
 
+        public DbSet<ViewEpisodes> ViewEpisodes { get; set; }
+
         private void GetConnectionString(out string ConnectionString)
         {
             var builder = new ConfigurationBuilder();
@@ -70,6 +72,9 @@ namespace DoctorWho.Db.DBContext
                 .GetMethod(nameof(PrintEnemies), new[] { typeof(int) })
                 ).HasName("fnEnemies");
 
+            modelBuilder.Entity<ViewEpisodes>()
+                .HasNoKey()
+                .ToView("viewEpisodes");
 
         }
 
