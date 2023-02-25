@@ -76,6 +76,17 @@ namespace DoctorWho.Db.DBContext
                 .HasNoKey()
                 .ToView("viewEpisodes");
 
+            modelBuilder.Entity<Enemy>()
+                .Property(e => e.EnemyId).UseIdentityColumn();
+            modelBuilder.Entity<Companion>()
+                .Property(c => c.CompanionId).UseIdentityColumn();
+            modelBuilder.Entity<Episode>()
+                .Property(e => e.EpisodeId).UseIdentityColumn();
+            modelBuilder.Entity<Doctor>()
+                .Property(d => d.DoctorId).UseIdentityColumn();
+            modelBuilder.Entity<Author>()
+                .Property(a => a.AuthorId).UseIdentityColumn();
+
         }
 
         public string PrintCompanions(int EpisodeId)
