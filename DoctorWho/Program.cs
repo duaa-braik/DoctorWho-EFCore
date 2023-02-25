@@ -1,2 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using DoctorWho;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var UserDefinedFunctions = new UserDefinedFunctions();
+
+        int EpisodeId = 3;
+
+        Console.WriteLine(UserDefinedFunctions.GetCompanions(EpisodeId));
+        Console.WriteLine(UserDefinedFunctions.GetEnemies(EpisodeId));
+    }
+}
