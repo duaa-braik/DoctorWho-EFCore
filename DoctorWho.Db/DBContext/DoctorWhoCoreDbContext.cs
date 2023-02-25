@@ -60,8 +60,24 @@ namespace DoctorWho.Db.DBContext
                 .WithMany(c => c.Episodes)
                 .UsingEntity(ec => ec.HasData(CompanionsEpisodes));
 
+            modelBuilder.HasDbFunction(
+                typeof(DoctorWhoCoreDbContext)
+                .GetMethod(nameof(PrintCompanions), new[] { typeof(int) })
+                ).HasName("fnCompanions");
+
+            modelBuilder.HasDbFunction(
+                typeof(DoctorWhoCoreDbContext)
+                .GetMethod(nameof(PrintEnemies), new[] { typeof(int) })
+                ).HasName("fnEnemies");
+
 
         }
+
+        public string PrintCompanions(int EpisodeId)
+                => throw new NotImplementedException();
+
+        public string PrintEnemies(int EpisodeId)
+                => throw new NotImplementedException();
 
         private List<object> SeedCompanionsEpisodes()
         {
