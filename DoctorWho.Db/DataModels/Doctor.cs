@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoctorWho.Db.DBContext;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,35 @@ namespace DoctorWho.Db.DataModels
         public DateTime LastEpisodeDate { get; set; }
 
         public List<Episode> Episodes { get; set; }
+
+        private Doctor doctor;
+
+        public Doctor GetById(int Id, DoctorWhoCoreDbContext context)
+        {
+            return context.Doctors.Find(Id);
+        }
+
+        public void Add(Doctor Doctor)
+        {
+            var context = new DoctorWhoCoreDbContext();
+            doctor = Doctor;
+            
+            context.Doctors.Add(doctor);
+            context.SaveChanges();
+
+        }
+
+        public void Update(int Id)
+        {
+
+        }
+
+        public void Delete(int Id)
+        {
+            var context = new DoctorWhoCoreDbContext();
+            doctor = GetById(Id, context);
+            context.Doctors.Remove(doctor);
+            context.SaveChanges();
+        }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DoctorWho.Db.DBContext;
 
 namespace DoctorWho.Db.DataModels
 {
@@ -30,6 +26,31 @@ namespace DoctorWho.Db.DataModels
 
         public List<Companion> Companions { get; set; }
         public List<Enemy> Enemies { get; set; }
+
+        private Episode episode;
+
+        public Episode GetById(int Id, DoctorWhoCoreDbContext context)
+        {
+            return context.Episodes.Find(Id);
+        }
+
+        public void Add(Episode Episode)
+        {
+            episode = Episode;
+            var context = new DoctorWhoCoreDbContext();
+
+            context.Episodes.Add(episode);
+            context.SaveChanges();
+        }
+
+        public void Delete(int Id)
+        {
+            var context = new DoctorWhoCoreDbContext();
+            episode = GetById(Id, context);
+
+            context.Episodes.Remove(episode);
+            context.SaveChanges();
+        }
 
     }
 }
