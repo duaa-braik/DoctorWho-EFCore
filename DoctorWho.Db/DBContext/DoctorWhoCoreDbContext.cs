@@ -26,12 +26,24 @@ namespace DoctorWho.Db.DBContext
             ConnectionString = config["ConnectionString:Connection"];
         }
 
+        public DoctorWhoCoreDbContext()
+        {
+        }
+
+        public DoctorWhoCoreDbContext(DbContextOptions<DoctorWhoCoreDbContext> options)
+            : base(options)
+        {
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             GetConnectionString(out string ConnectionString);
 
-            optionsBuilder.UseSqlServer(ConnectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
