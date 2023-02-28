@@ -44,20 +44,24 @@ namespace DoctorWho.Db.DataModels
             return context.Episodes.Find(Id);
         }
 
-        public void Add(Episode Episode)
+        public int Add(Episode Episode)
         {
             episode = Episode;
             
             context.Episodes.Add(episode);
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
-        public void Delete(int Id)
+        public int Delete(int Id)
         {
             episode = GetById(Id, context);
 
-            context.Episodes.Remove(episode);
-            context.SaveChanges();
+            if(episode != null)
+            {
+                context.Episodes.Remove(episode);
+                return context.SaveChanges();
+            }
+            return 0;   
         }
 
     }

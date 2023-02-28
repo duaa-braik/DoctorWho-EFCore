@@ -33,7 +33,7 @@ namespace DoctorWho.Db.DataModels
 
         private Companion companion;
 
-        public void Add(string CompanionName, string WhoPlayed)
+        public int Add(string CompanionName, string WhoPlayed)
         {
             companion = new Companion
             {
@@ -42,10 +42,10 @@ namespace DoctorWho.Db.DataModels
             };
 
             context.Companions.Add(companion);
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
-        public void Update(int Id, string Name, [Optional] string WhoPlayed)
+        public int Update(int Id, string Name, [Optional] string WhoPlayed)
         {
             companion = GetById(Id, context);
 
@@ -56,16 +56,21 @@ namespace DoctorWho.Db.DataModels
                 {
                     companion.WhoPlayed = WhoPlayed;
                 }
-                context.SaveChanges();
+                return context.SaveChanges();
             }
+            return 0;
         }
 
-        public void Remove(int Id)
+        public int Remove(int Id)
         {
             companion = GetById(Id, context);
 
-            context.Companions.Remove(companion);
-            context.SaveChanges();
+            if(companion != null)
+            {
+                context.Companions.Remove(companion);
+                return context.SaveChanges();
+            }
+            return 0;   
         }
 
         public Companion GetById(int Id, DoctorWhoCoreDbContext context)

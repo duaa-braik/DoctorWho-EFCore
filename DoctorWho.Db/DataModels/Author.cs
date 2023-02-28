@@ -40,30 +40,38 @@ namespace DoctorWho.Db.DataModels
             return context.Authors.Find(Id);
         }
 
-        public void Add(string Name)
+        public int Add(string Name)
         {
             author = new Author()
             {
                 AuthorName = Name
             };
             context.Authors.Add(author);
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
-        public void Update(int Id, string Name)
+        public int Update(int Id, string Name)
         {
             author = GetById(Id, context);
 
-            author.AuthorName = Name;
-            context.SaveChanges();
+            if(author != null)
+            {
+                author.AuthorName = Name;
+                return context.SaveChanges();
+            }
+            return 0;
         }
 
-        public void Delete(int Id)
+        public int Delete(int Id)
         {
             author = GetById(Id, context);
 
-            context.Authors.Remove(author);
-            context.SaveChanges();
+            if(author != null)
+            {
+                context.Authors.Remove(author);
+                return context.SaveChanges();
+            }
+            return 0;
         }
     }
 }

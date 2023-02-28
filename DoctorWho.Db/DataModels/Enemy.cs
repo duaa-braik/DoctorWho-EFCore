@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,17 +35,17 @@ namespace DoctorWho.Db.DataModels
 
         public List<Episode> Episodes { get; set; }
 
-        public void CreateEnemy(string EnemyName)
+        public int CreateEnemy(string EnemyName)
         {
             enemy = new Enemy()
             {
                 EnemyName = EnemyName
             };
             context.Add(enemy);
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
-        public void UpdateEnemy(int EnemyId, string EnemyName, [Optional] string Description)
+        public int UpdateEnemy(int EnemyId, string EnemyName, [Optional] string Description)
         {
             enemy = GetEnemyById(EnemyId, context);
 
@@ -58,12 +59,13 @@ namespace DoctorWho.Db.DataModels
                 {
                     enemy.Description = Description;
                 }
-                context.SaveChanges();
+                return context.SaveChanges();
             }
+            return 0;
 
         }
 
-        public void DeleteEnemy(int EnemyId)
+        public int DeleteEnemy(int EnemyId)
         {
             
             enemy = GetEnemyById(EnemyId, context);
@@ -71,8 +73,9 @@ namespace DoctorWho.Db.DataModels
             if (enemy != null)
             {
                 context.Enemies.Remove(enemy);
-                context.SaveChanges();
+                return context.SaveChanges();
             }
+            return 0;
         }
 
         private Enemy GetEnemyById(int EnemyId, DoctorWhoCoreDbContext context)

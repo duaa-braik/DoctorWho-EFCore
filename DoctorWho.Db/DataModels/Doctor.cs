@@ -40,12 +40,12 @@ namespace DoctorWho.Db.DataModels
             return context.Doctors.Find(Id);
         }
 
-        public void Add(Doctor Doctor)
+        public int Add(Doctor Doctor)
         {
             doctor = Doctor;
             
             context.Doctors.Add(doctor);
-            context.SaveChanges();
+            return context.SaveChanges();
 
         }
 
@@ -54,11 +54,16 @@ namespace DoctorWho.Db.DataModels
 
         }
 
-        public void Delete(int Id)
+        public int Delete(int Id)
         {
             doctor = GetById(Id, context);
-            context.Doctors.Remove(doctor);
-            context.SaveChanges();
+
+            if(doctor != null)
+            {
+                context.Doctors.Remove(doctor);
+                return context.SaveChanges();
+            }
+            return 0;
         }
     }
 }
