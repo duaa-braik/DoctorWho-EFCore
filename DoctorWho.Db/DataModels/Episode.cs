@@ -4,10 +4,20 @@ namespace DoctorWho.Db.DataModels
 {
     public class Episode
     {
-        public Episode()
+        private DoctorWhoCoreDbContext context;
+
+        public Episode(DoctorWhoCoreDbContext Context)
         {
             Companions = new List<Companion>();
             Enemies = new List<Enemy>();
+            if(Context != null)
+            {
+                context = Context;
+            } else
+            {
+                context = new DoctorWhoCoreDbContext();
+            }
+            
         }
 
         public int EpisodeId { get; set; }
@@ -37,15 +47,13 @@ namespace DoctorWho.Db.DataModels
         public void Add(Episode Episode)
         {
             episode = Episode;
-            var context = new DoctorWhoCoreDbContext();
-
+            
             context.Episodes.Add(episode);
             context.SaveChanges();
         }
 
         public void Delete(int Id)
         {
-            var context = new DoctorWhoCoreDbContext();
             episode = GetById(Id, context);
 
             context.Episodes.Remove(episode);

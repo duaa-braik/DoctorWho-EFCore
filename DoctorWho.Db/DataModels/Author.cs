@@ -11,9 +11,21 @@ namespace DoctorWho.Db.DataModels
 {
     public class Author
     {
-        public Author()
+        private DoctorWhoCoreDbContext context;
+
+        public Author() { }
+        public Author(DoctorWhoCoreDbContext Context)
         {
             Episodes = new List<Episode>();
+            if(Context != null)
+            {
+                context = Context;
+            }
+            else
+            {
+                context = new DoctorWhoCoreDbContext();
+            }
+            
         }
 
         public int AuthorId { get; set; }
@@ -30,17 +42,16 @@ namespace DoctorWho.Db.DataModels
 
         public void Add(string Name)
         {
-            using var context = new DoctorWhoCoreDbContext();
-
             author = new Author()
             {
                 AuthorName = Name
             };
+            context.Authors.Add(author);
+            context.SaveChanges();
         }
 
         public void Update(int Id, string Name)
         {
-            using var context = new DoctorWhoCoreDbContext();
             author = GetById(Id, context);
 
             author.AuthorName = Name;
@@ -49,7 +60,6 @@ namespace DoctorWho.Db.DataModels
 
         public void Delete(int Id)
         {
-            using var context = new DoctorWhoCoreDbContext();
             author = GetById(Id, context);
 
             context.Authors.Remove(author);

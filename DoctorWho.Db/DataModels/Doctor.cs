@@ -9,9 +9,19 @@ namespace DoctorWho.Db.DataModels
 {
     public class Doctor
     {
-        public Doctor()
+        private DoctorWhoCoreDbContext context;
+
+        public Doctor(DoctorWhoCoreDbContext Context)
         {
             Episodes = new List<Episode>();
+            if(Context != null)
+            {
+                context = Context;
+            } else
+            {
+                context = new DoctorWhoCoreDbContext();
+            }
+            
         }
 
         public int DoctorId { get; set; }
@@ -32,7 +42,6 @@ namespace DoctorWho.Db.DataModels
 
         public void Add(Doctor Doctor)
         {
-            var context = new DoctorWhoCoreDbContext();
             doctor = Doctor;
             
             context.Doctors.Add(doctor);
@@ -47,7 +56,6 @@ namespace DoctorWho.Db.DataModels
 
         public void Delete(int Id)
         {
-            var context = new DoctorWhoCoreDbContext();
             doctor = GetById(Id, context);
             context.Doctors.Remove(doctor);
             context.SaveChanges();

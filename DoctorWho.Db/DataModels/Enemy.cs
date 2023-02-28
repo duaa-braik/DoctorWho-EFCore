@@ -10,9 +10,22 @@ namespace DoctorWho.Db.DataModels
 {
     public class Enemy
     {
-        public Enemy()
+        private Enemy enemy;
+        private DoctorWhoCoreDbContext context;
+
+        public Enemy() { }
+        public Enemy(DoctorWhoCoreDbContext Context)
         {
             Episodes = new List<Episode>();
+            if(Context != null)
+            {
+                context = Context;
+            } 
+            else
+            {
+                context = new DoctorWhoCoreDbContext();
+            }
+            
         }
 
         public int EnemyId { get; set; }
@@ -21,13 +34,9 @@ namespace DoctorWho.Db.DataModels
 
         public List<Episode> Episodes { get; set; }
 
-        private Enemy enemy;
-
         public void CreateEnemy(string EnemyName)
         {
-            using var context = new DoctorWhoCoreDbContext();
-
-            enemy = new Enemy
+            enemy = new Enemy()
             {
                 EnemyName = EnemyName
             };
@@ -37,7 +46,6 @@ namespace DoctorWho.Db.DataModels
 
         public void UpdateEnemy(int EnemyId, string EnemyName, [Optional] string Description)
         {
-            using var context = new DoctorWhoCoreDbContext();
             enemy = GetEnemyById(EnemyId, context);
 
             if (enemy != null)
@@ -57,8 +65,7 @@ namespace DoctorWho.Db.DataModels
 
         public void DeleteEnemy(int EnemyId)
         {
-            using var context = new DoctorWhoCoreDbContext();
-
+            
             enemy = GetEnemyById(EnemyId, context);
 
             if (enemy != null)
