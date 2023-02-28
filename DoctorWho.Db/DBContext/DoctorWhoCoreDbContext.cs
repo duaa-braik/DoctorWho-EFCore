@@ -38,10 +38,9 @@ namespace DoctorWho.Db.DBContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            GetConnectionString(out string ConnectionString);
-
             if (!optionsBuilder.IsConfigured)
             {
+                GetConnectionString(out string ConnectionString);
                 optionsBuilder.UseSqlServer(ConnectionString);
             }
         }
