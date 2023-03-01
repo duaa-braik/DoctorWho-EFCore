@@ -58,7 +58,23 @@ namespace DoctorWho.Db.DataModels
                 context.Episodes.Remove(episode);
                 return context.SaveChanges();
             }
-            return 0;   
+            return 0;
+        }
+
+        public int AddEnemyToEpisode(int Id, Enemy Enemy)
+        {
+            var Episode = GetById(Id);
+
+            Episode.Enemies.Add(Enemy);
+            return context.SaveChanges();
+        }
+
+        public int AddCompanionToEpisode(int Id, Companion Companion)
+        {
+            var Episode = GetById(Id);
+
+            Episode.Companions.Add(Companion);
+            return context.SaveChanges();
         }
 
     }
