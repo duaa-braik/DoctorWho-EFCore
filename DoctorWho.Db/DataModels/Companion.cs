@@ -10,19 +10,16 @@ namespace DoctorWho.Db.DataModels
 {
     public class Companion
     {
-        private DoctorWhoCoreDbContext context;
+        private readonly DoctorWhoCoreDbContext context;
 
-        public Companion() { }
+        public Companion() {
+            context = new DoctorWhoCoreDbContext();
+        }
         public Companion(DoctorWhoCoreDbContext Context)
         {
             Episodes = new List<Episode>();
-            if(Context != null)
-            {
-                context = Context;
-            } else
-            {
-                context = new DoctorWhoCoreDbContext();
-            }
+
+            context = Context ?? new DoctorWhoCoreDbContext();
         }
 
         public int CompanionId { get; set; }
@@ -61,7 +58,7 @@ namespace DoctorWho.Db.DataModels
             return 0;
         }
 
-        public int Remove(int Id)
+        public int Delete(int Id)
         {
             companion = GetById(Id, context);
 

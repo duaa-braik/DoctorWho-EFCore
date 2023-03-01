@@ -6,18 +6,15 @@ namespace DoctorWho.Db.DataModels
     {
         private DoctorWhoCoreDbContext context;
 
+        public Episode() { 
+            context = new DoctorWhoCoreDbContext();
+        }
         public Episode(DoctorWhoCoreDbContext Context)
         {
             Companions = new List<Companion>();
             Enemies = new List<Enemy>();
-            if(Context != null)
-            {
-                context = Context;
-            } else
-            {
-                context = new DoctorWhoCoreDbContext();
-            }
-            
+
+            context = Context ?? new DoctorWhoCoreDbContext();
         }
 
         public int EpisodeId { get; set; }
@@ -39,7 +36,7 @@ namespace DoctorWho.Db.DataModels
 
         private Episode episode;
 
-        public Episode GetById(int Id, DoctorWhoCoreDbContext context)
+        public Episode GetById(int Id)
         {
             return context.Episodes.Find(Id);
         }
@@ -54,7 +51,7 @@ namespace DoctorWho.Db.DataModels
 
         public int Delete(int Id)
         {
-            episode = GetById(Id, context);
+            episode = GetById(Id);
 
             if(episode != null)
             {

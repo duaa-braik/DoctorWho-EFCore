@@ -14,19 +14,15 @@ namespace DoctorWho.Db.DataModels
         private Enemy enemy;
         private DoctorWhoCoreDbContext context;
 
-        public Enemy() { }
+        public Enemy() {
+            context = new DoctorWhoCoreDbContext();
+        }
         public Enemy(DoctorWhoCoreDbContext Context)
         {
             Episodes = new List<Episode>();
-            if(Context != null)
-            {
-                context = Context;
-            } 
-            else
-            {
-                context = new DoctorWhoCoreDbContext();
-            }
-            
+
+            context = Context ?? new DoctorWhoCoreDbContext();
+
         }
 
         public int EnemyId { get; set; }

@@ -1,4 +1,5 @@
 ﻿using DoctorWho.Db.DBContext;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,13 @@ namespace DoctorWho.Db.DataModels
     {
         private DoctorWhoCoreDbContext context;
 
+        public Doctor() {
+            context = new DoctorWhoCoreDbContext();
+        }
         public Doctor(DoctorWhoCoreDbContext Context)
         {
             Episodes = new List<Episode>();
-            if(Context != null)
-            {
-                context = Context;
-            } else
-            {
-                context = new DoctorWhoCoreDbContext();
-            }
-            
+            context = Context ?? new DoctorWhoCoreDbContext();
         }
 
         public int DoctorId { get; set; }
@@ -35,9 +32,16 @@ namespace DoctorWho.Db.DataModels
 
         private Doctor doctor;
 
-        public Doctor GetById(int Id, DoctorWhoCoreDbContext context)
+        public Doctor GetById(int Id)
         {
             return context.Doctors.Find(Id);
+        }
+
+        public Doctor GetDoctorWithEpisodes(int Id)
+        {
+            return context.Doctors
+                .Include(d => d.Episodes)
+                .FirstOrDefault(d => d.DoctorId == Id);
         }
 
         public int Add(Doctor Doctor)
@@ -56,7 +60,7 @@ namespace DoctorWho.Db.DataModels
 
         public int Delete(int Id)
         {
-            doctor = GetById(Id, context);
+            doctor = GetDoctorWithEpisodes(Id);
 
             if(doctor != null)
             {

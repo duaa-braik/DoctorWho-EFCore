@@ -1,11 +1,5 @@
 ﻿using DoctorWho.Db.DBContext;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Db.DataModels
 {
@@ -17,15 +11,8 @@ namespace DoctorWho.Db.DataModels
         public Author(DoctorWhoCoreDbContext Context)
         {
             Episodes = new List<Episode>();
-            if(Context != null)
-            {
-                context = Context;
-            }
-            else
-            {
-                context = new DoctorWhoCoreDbContext();
-            }
-            
+
+            context = Context ?? new DoctorWhoCoreDbContext();
         }
 
         public int AuthorId { get; set; }
@@ -35,9 +22,16 @@ namespace DoctorWho.Db.DataModels
 
         private Author author;
 
-        public Author GetById(int Id, DoctorWhoCoreDbContext context)
+        public Author GetById(int Id)
         {
             return context.Authors.Find(Id);
+        }
+
+        private Author GetAuthorWithEpisodes(int Id)
+        {
+            return context.Authors
+                .Include(a => a.Episodes)
+                .FirstOrDefault(a => a.AuthorId == Id);
         }
 
         public int Add(string Name)
@@ -52,9 +46,9 @@ namespace DoctorWho.Db.DataModels
 
         public int Update(int Id, string Name)
         {
-            author = GetById(Id, context);
+            author = GetById(Id);
 
-            if(author != null)
+            if (author != null)
             {
                 author.AuthorName = Name;
                 return context.SaveChanges();
@@ -64,9 +58,9 @@ namespace DoctorWho.Db.DataModels
 
         public int Delete(int Id)
         {
-            author = GetById(Id, context);
+            author = GetAuthorWithEpisodes(Id);
 
-            if(author != null)
+            if (author != null)
             {
                 context.Authors.Remove(author);
                 return context.SaveChanges();
