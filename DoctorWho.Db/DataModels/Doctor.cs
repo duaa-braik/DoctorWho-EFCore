@@ -69,5 +69,10 @@ namespace DoctorWho.Db.DataModels
             }
             return 0;
         }
+
+        public IEnumerable<Doctor> GetAllDoctors()
+        {
+            return context.Doctors.ToList();
+        }
     }
 }
