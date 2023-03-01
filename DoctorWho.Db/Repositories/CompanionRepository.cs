@@ -11,24 +11,41 @@ namespace DoctorWho.Db.Repositories
         {
             this.context = context ?? new DoctorWhoCoreDbContext();
         }
-        public int Add(Companion t)
+        public int Add(Companion companion)
         {
-            throw new NotImplementedException();
+            context.Companions.Add(companion);
+            return context.SaveChanges();
         }
 
         public int Delete(int Id)
         {
-            throw new NotImplementedException();
+            var companion = GetById(Id);
+
+            if (companion != null)
+            {
+                context.Companions.Remove(companion);
+                return context.SaveChanges();
+            }
+            return 0;
         }
 
-        public Companion GetById(int id)
+        public Companion GetById(int Id)
         {
-            throw new NotImplementedException();
+            return context.Companions.Find(Id);
         }
 
-        public int Update(Companion t)
+        public int Update(Companion companion)
         {
-            throw new NotImplementedException();
+            var OldCompanion = GetById(companion.CompanionId);
+
+            if (OldCompanion != null)
+            {
+                OldCompanion.CompanionName = companion.CompanionName;
+                OldCompanion.WhoPlayed = companion.WhoPlayed;
+
+                return context.SaveChanges();
+            }
+            return 0;
         }
     }
 }

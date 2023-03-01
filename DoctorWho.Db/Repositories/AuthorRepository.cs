@@ -1,5 +1,7 @@
 ﻿using DoctorWho.Db.DataModels;
 using DoctorWho.Db.DBContext;
+using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace DoctorWho.Db.Repositories
 {
@@ -11,24 +13,46 @@ namespace DoctorWho.Db.Repositories
         {
             this.context = context ?? new DoctorWhoCoreDbContext();
         }
-        public int Add(Author t)
+        public int Add(Author author)
         {
-            throw new NotImplementedException();
+            context.Authors.Add(author);
+            return context.SaveChanges();
         }
 
         public int Delete(int Id)
         {
-            throw new NotImplementedException();
+            var author = GetAuthorWithEpisodes(Id);
+
+            if (author != null)
+            {
+                context.Authors.Remove(author);
+                return context.SaveChanges();
+            }
+            return 0;
         }
 
-        public Author GetById(int id)
+        public Author GetAuthorWithEpisodes(int Id)
         {
-            throw new NotImplementedException();
+            return context.Authors
+                .Include(a => a.Episodes)
+                .FirstOrDefault(a => a.AuthorId == Id);
         }
 
-        public int Update(Author t)
+        public Author GetById(int Id)
         {
-            throw new NotImplementedException();
+            return context.Authors.Find(Id);
+        }
+
+        public int Update(Author author)
+        {
+            var OldAuthor = GetById(author.AuthorId);
+
+            if (OldAuthor != null)
+            {
+                OldAuthor.AuthorName = author.AuthorName;
+                return context.SaveChanges();
+            }
+            return 0;
         }
     }
 }
