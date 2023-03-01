@@ -11,24 +11,62 @@ namespace DoctorWho.Db.Repositories
         {
             this.context = context ?? new DoctorWhoCoreDbContext();
         }
-        public int Add(Episode t)
+        public int Add(Episode episode)
         {
-            throw new NotImplementedException();
+            context.Episodes.Add(episode);
+            return context.SaveChanges();
         }
 
         public int Delete(int Id)
         {
-            throw new NotImplementedException();
+            var episode = GetById(Id);
+
+            if (episode != null)
+            {
+                context.Episodes.Remove(episode);
+                return context.SaveChanges();
+            }
+            return 0;
         }
 
         public Episode GetById(int Id)
         {
-            throw new NotImplementedException();
+            return context.Episodes.Find(Id);
         }
 
-        public int Update(Episode t)
+        public int Update(Episode episode)
         {
-            throw new NotImplementedException();
+            var OldEpisode = GetById(episode.EpisodeId);
+
+            if(OldEpisode != null)
+            {
+                OldEpisode.EpisodeNumber = episode.EpisodeNumber;
+                OldEpisode.SeriesNumber = episode.SeriesNumber;
+                OldEpisode.EpisodeType = episode.EpisodeType;
+                OldEpisode.Title = episode.Title;
+                OldEpisode.EpisodeDate = episode.EpisodeDate;
+                OldEpisode.Notes = episode.Notes;
+                OldEpisode.AuthorId = episode.AuthorId;
+                OldEpisode.DoctorId = episode.DoctorId;
+                return context.SaveChanges();
+            }
+            return 0;
+        }
+
+        public int AddEnemyToEpisode(int Id, Enemy Enemy)
+        {
+            var Episode = GetById(Id);
+
+            Episode.Enemies.Add(Enemy);
+            return context.SaveChanges();
+        }
+
+        public int AddCompanionToEpisode(int Id, Companion Companion)
+        {
+            var Episode = GetById(Id);
+
+            Episode.Companions.Add(Companion);
+            return context.SaveChanges();
         }
     }
 }
