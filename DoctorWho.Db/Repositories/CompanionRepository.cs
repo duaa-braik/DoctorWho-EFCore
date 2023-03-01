@@ -1,9 +1,16 @@
 ﻿using DoctorWho.Db.DataModels;
+using DoctorWho.Db.DBContext;
 
 namespace DoctorWho.Db.Repositories
 {
     public class CompanionRepository : ICompanionRepository
     {
+        private readonly DoctorWhoCoreDbContext context;
+
+        public CompanionRepository(DoctorWhoCoreDbContext context)
+        {
+            this.context = context ?? new DoctorWhoCoreDbContext();
+        }
         public int Add(Companion t)
         {
             throw new NotImplementedException();
