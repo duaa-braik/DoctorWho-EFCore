@@ -40,14 +40,7 @@ namespace DoctorWho.Db.Repositories
 
             if(OldEpisode != null)
             {
-                OldEpisode.EpisodeNumber = episode.EpisodeNumber;
-                OldEpisode.SeriesNumber = episode.SeriesNumber;
-                OldEpisode.EpisodeType = episode.EpisodeType;
-                OldEpisode.Title = episode.Title;
-                OldEpisode.EpisodeDate = episode.EpisodeDate;
-                OldEpisode.Notes = episode.Notes;
-                OldEpisode.AuthorId = episode.AuthorId;
-                OldEpisode.DoctorId = episode.DoctorId;
+                context.Episodes.Update(episode);
                 return context.SaveChanges();
             }
             return 0;

@@ -1,7 +1,6 @@
 ﻿using DoctorWho.Db.DataModels;
 using DoctorWho.Db.DBContext;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace DoctorWho.Db.Repositories
 {
@@ -47,9 +46,9 @@ namespace DoctorWho.Db.Repositories
         {
             var OldAuthor = GetById(author.AuthorId);
 
-            if (OldAuthor != null)
+            if(OldAuthor != null)
             {
-                OldAuthor.AuthorName = author.AuthorName;
+                context.Authors.Update(author);
                 return context.SaveChanges();
             }
             return 0;

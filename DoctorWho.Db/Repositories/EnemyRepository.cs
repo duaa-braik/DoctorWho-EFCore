@@ -38,11 +38,9 @@ namespace DoctorWho.Db.Repositories
         {
             var OldEnemy = GetById(enemy.EnemyId);
 
-            if (enemy != null)
+            if (OldEnemy != null)
             {
-                OldEnemy.EnemyName = enemy.EnemyName;
-                OldEnemy.Description = enemy.Description;
-
+                context.Enemies.Update(enemy);
                 return context.SaveChanges();
             }
             return 0;

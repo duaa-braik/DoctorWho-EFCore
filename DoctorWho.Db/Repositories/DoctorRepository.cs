@@ -41,11 +41,7 @@ namespace DoctorWho.Db.Repositories
 
             if (OldDoctor != null)
             {
-                OldDoctor.DoctorNumber = doctor.DoctorNumber;
-                OldDoctor.DoctorName = doctor.DoctorName;
-                OldDoctor.BirthDate = doctor.BirthDate;
-                OldDoctor.FirstEpisodeDate = doctor.FirstEpisodeDate;
-                OldDoctor.LastEpisodeDate = doctor.LastEpisodeDate;
+                context.Doctors.Update(doctor);
                 return context.SaveChanges();
             }
             return 0;

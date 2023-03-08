@@ -40,9 +40,7 @@ namespace DoctorWho.Db.Repositories
 
             if (OldCompanion != null)
             {
-                OldCompanion.CompanionName = companion.CompanionName;
-                OldCompanion.WhoPlayed = companion.WhoPlayed;
-
+                context.Companions.Update(companion);
                 return context.SaveChanges();
             }
             return 0;
